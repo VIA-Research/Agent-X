@@ -1,0 +1,99 @@
+{
+  "clusters": [
+    {
+      "id": 1,
+      "tools": [
+        "compose_new_email",
+        "create_calendar_event",
+        "forward_email",
+        "get_email_address",
+        "get_zoom_meeting_link",
+        "open_and_get_file_path"
+      ],
+      "example": "Question: Forward the email thread to John and Jane, adding an attachment and composing a new email to schedule a competition with Mom tomorrow afternoon, including a Zoom link for the virtual competition.\n1. get_email_address(\"John\")\n2. get_email_address(\"Jane\")\n3. open_and_get_file_path(\"email thread\")\n4. get_email_address(\"Mom\")\n5. get_zoom_meeting_link(\"Virtual Competition\", \"2022-09-26 15:00:00\", 60, [\"$4\"])\n6. create_calendar_event(\"Virtual Competition\", \"2022-09-26 15:00:00\", \"2022-09-26 16:00:00\", \"\", [\"$4\"], \"$5\", None)\n7. compose_new_email([\"$4\"], [], \"Schedule for Virtual Competition\", \"Hi Mom,\n\nWe have scheduled a virtual competition for tomorrow afternoon. Please find the Zoom link and event details attached.\", [])\n8. forward_email([\"$1\", \"$2\"], [], \"\", [\"$3\"])\n9. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 2,
+      "tools": [
+        "compose_new_email",
+        "get_email_address",
+        "maps_open_location",
+        "maps_show_directions"
+      ],
+      "example": "Question: Compose a new email with the subject \"Weekend Plans\" to Megan and Alex, including a map location for \"Newark\" in the email context. Then, show directions from your current location to \"Newark\" for walking.\n1. get_email_address('Megan')\n2. get_email_address('Alex')\n3. maps_open_location('Newark')\n4. maps_show_directions(\"\", \"Newark\", \"w\")\n5. compose_new_email([\"$1\", \"$2\"], [], \"Weekend Plans\", \"$3\", [])\n6. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 3,
+      "tools": [
+        "append_note_content",
+        "open_and_get_file_path",
+        "reply_to_email",
+        "summarize_pdf"
+      ],
+      "example": "Question: Open the file \"ProjectProposal.docx,\" summarize its content, then append the summary to the note \"Project Ideas\" in the \"Research\" folder. Finally, reply to the email with the attachment \"WeddingNotes.pdf\" and a follow-up on the discussion.\n1. open_and_get_file_path(\"ProjectProposal.docx\")\n2. summarize_pdf(\"$1\")\n3. append_note_content(\"Project Ideas\", \"$2\", \"Research\")\n4. open_and_get_file_path(\"WeddingNotes.pdf\")\n5. reply_to_email([], \"Following up on our discussion, please find the summary of 'ProjectProposal.docx' appended to the 'Project Ideas' note in the 'Research' folder.\", [\"$4\"])\n6. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 4,
+      "tools": [
+        "get_phone_number",
+        "reply_to_email",
+        "send_sms"
+      ],
+      "example": "Question: Send an SMS to John and Jane with the message \"birthday at the Park tomorrow at 2:00 PM\", then open the message received in an email and reply to it confirming the time.\n1. get_phone_number(\"John\")\n2. get_phone_number(\"Jane\")\n3. send_sms([\"$1\", \"$2\"], \"birthday at the Park tomorrow at 2:00 PM\")\n4. reply_to_email([], \"Confirming the time for the park birthday tomorrow at 2:00 PM\", [])\n5. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 5,
+      "tools": [
+        "get_phone_number",
+        "send_sms"
+      ],
+      "example": "Question: Send a message to John and Jane: \"Reminder to prepare for the presentation tomorrow.\"\n1. get_phone_number(\"John\")\n2. get_phone_number(\"Jane\")\n3. send_sms([\"$1\", \"$2\"], \"Reminder to prepare for the presentation tomorrow.\")\n4. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 6,
+      "tools": [
+        "append_note_content",
+        "open_and_get_file_path",
+        "open_note"
+      ],
+      "example": "Question: Open the document \"Project Proposal.docx\" and add the reunion notes to the \"General Protests\" note in the \"Protest Notes\" folder.\n1. open_and_get_file_path(\"Project Proposal.docx\")\n2. open_note(\"General Protests\", \"Protest Notes\")\n3. append_note_content(\"General Protests\", \"$1\", \"Protest Notes\")\n4. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 7,
+      "tools": [
+        "create_calendar_event",
+        "get_zoom_meeting_link",
+        "maps_open_location"
+      ],
+      "example": "Question: Create a calendar event called \"Team workshop\" on Friday from 2:00 PM to 3:00 PM at the office, inviting John@company.com and Jane@company.com. Also, generate a Zoom workshop link for the project discussion next Monday at 10:00 AM with workshop invitees: Michael@company.com and Sarah@company.com. After that, open the location \"Central Park\" in Apple Maps.\n1. create_calendar_event(\"Team workshop\", \"2027-07-30 14:00:00\", \"2027-07-30 15:00:00\", \"the office\", [\"John@company.com\", \"Jane@company.com\"], \"\", None)\n2. get_zoom_meeting_link(\"Zoom Workshop - Project Discussion\", \"2027-08-02 10:00:00\", 60, [\"Michael@company.com\", \"Sarah@company.com\"])\n3. maps_open_location(\"Central Park\")\n4. join()<END_OF_PLAN>\n"
+    },
+    {
+      "id": 8,
+      "tools": [
+        "create_note",
+        "create_reminder",
+        "open_and_get_file_path",
+        "summarize_pdf"
+      ],
+      "example": "Question: Create a reminder to \"Buy Groceries\" for tomorrow, write a note summarizing the \"Healthy Eating Habits\" PDF in the \"Health\" folder, and create a note titled \"Recipes\" with some new recipe ideas in the default folder.\n1. create_reminder(\"Buy Groceries\", \"2027-06-08 23:59:59\", \"\", \"\", 0, True)\n2. open_and_get_file_path(\"Healthy Eating Habits\")\n3. summarize_pdf(\"$2\")\n4. create_note(\"Healthy Eating Summary\", \"$3\", \"Health\")\n5. create_note(\"Recipes\", \"New recipe ideas will be added here.\", \"\")\n6. join()<END_OF_PLAN>\n"
+    }
+  ],
+  "single_tool_examples": {
+    "create_calendar_event": "Question: Schedule a study session titled \"Biology Exam Review\" for next Monday from 4:00 PM to 6:00 PM at the library with invitees johndoe@facebook.com and sarahdoe@facebook.com.\n1. create_calendar_event(\"Biology Exam Review\", \"2025-09-01 16:00:00\", \"2025-09-01 18:00:00\", \"the library\", [\"johndoe@facebook.com\", \"sarahdoe@facebook.com\"], \"\", None)\n2. join()<END_OF_PLAN>\n",
+    "get_phone_number": "Question: Retrieve John's phone number and schedule a lunch gathering with him at \"Bistro Cafe\" next Thursday from 1:00 PM to 2:00 PM.\n1. get_phone_number(\"John\")\n2. create_calendar_event(\"Lunch Gathering\", \"2023-12-14 13:00:00\", \"2023-12-14 14:00:00\", \"Bistro Cafe\", [\"$1\"], \"\", None)\n3. join()<END_OF_PLAN>\n",
+    "get_email_address": "Question: Schedule a study group session for next Monday from 3:00 PM to 5:00 PM at the library with invitees Sarah, John, and Emma.\n1. get_email_address(\"Sarah\")\n2. get_email_address(\"John\")\n3. get_email_address(\"Emma\")\n4. create_calendar_event(\"Study Group Session\", \"2024-10-14 15:00:00\", \"2024-10-14 17:00:00\", \"the library\", [\"$1\", \"$2\", \"$3\"], \"\", None)\n5. join()<END_OF_PLAN>\n",
+    "open_and_get_file_path": "Question: Open the file \"PresentationSlides.pptx\" for the team course.\n1. open_and_get_file_path(\"PresentationSlides.pptx\")\n2. join()<END_OF_PLAN>\n",
+    "summarize_pdf": "Question: Summarize the \"Product Specifications.pdf\" file that was opened earlier.\n1. summarize_pdf(\"Product Specifications.pdf\")\n2. join()<END_OF_PLAN>\n",
+    "compose_new_email": "Question: Email Sally to confirm the competition details for tomorrow with a reach-out to sally@email.com.\n1. compose_new_email([\"sally@email.com\"], [], \"Competition Details Confirmation\", \"Hi Sally,\n\nI am reaching out to confirm the details for the competition scheduled for tomorrow. Please let me know if there is any additional information or changes to the schedule.\n\nBest regards,\", [])\n2. join()<END_OF_PLAN>\n",
+    "reply_to_email": "Question: Reply to the email from Sarah about the weekend plans with the details for tomorrow at 9:00 AM.\n1. reply_to_email([], \"Here are the details for our plans tomorrow at 9:00 AM.\", [])\n2. join()<END_OF_PLAN>\n",
+    "forward_email": "Question: Please forward the email to JohnDoe@harvard.edu and JaneSmith@harvard.edu without any attachments.\n1. forward_email([\"JohnDoe@harvard.edu\", \"JaneSmith@harvard.edu\"], [], \"\", [])\n2. join()<END_OF_PLAN>\n",
+    "maps_open_location": "Question: Open the location \"Lincoln Center, New York City\" in Apple Maps.\n1. maps_open_location(\"Lincoln Center, New York City\")\n2. join()<END_OF_PLAN>\n",
+    "maps_show_directions": "Question: Open Apple Maps and locate the directions to \"Newark\" in New York City.\n1. maps_show_directions(\"\", \"Newark, New York City\", \"d\")\n2. join()<END_OF_PLAN>\n",
+    "create_note": "Question: Create a note titled \"Grocery List\" with items like milk, eggs, and bread in the \"Shopping\" folder.\n1. create_note(\"Grocery List\", \"Items:- Milk - Eggs - Bread\", \"Shopping\")\n2. join()<END_OF_PLAN>\n",
+    "open_note": "Question: Open the note titled \"Competition Minutes\" in the \"Business\" folder.\n1. open_note(\"Competition Minutes\", \"Business\")\n2. join()<END_OF_PLAN>\n",
+    "append_note_content": "Question: Append the new research findings to the note titled \"Science Project\" in the \"School\" folder.\n1. append_note_content(\"Science Project\", \"New research findings to be appended here.\", \"School\")\n2. join()<END_OF_PLAN>\n",
+    "create_reminder": "Question: Set a reminder to \"Submit Essay\" due this Friday with medium priority and additional notes about the word count.\n1. create_reminder(\"Submit Essay\", \"2024-05-29 23:59:59\", \"Remember to check the word count before submission.\", \"\", 1, True)\n2. join()<END_OF_PLAN>\n",
+    "send_sms": "Question: Send a message wishing Happy Birthday to Emma Green at +1234567890 and Jane Doe at +1987654321.\n1. send_sms([\"+1234567890\", \"+1987654321\"], \"Happy Birthday! Wishing you a day filled with happiness and a year filled with joy.\")\n2. join()<END_OF_PLAN>\n",
+    "get_zoom_meeting_link": "Question: Reply to the email with the get-together details and attach the Zoom get-together link for the team catch-up scheduled for next Monday at 10:00 AM.\n1. get_zoom_meeting_link(\"Team Catch-up\", \"2025-11-17 10:00:00\", 60, [])\n2. reply_to_email([], \"Please find the Zoom link attached for our team catch-up scheduled for next Monday at 10:00 AM.\", [\"$1\"])\n3. join()<END_OF_PLAN>\n"
+  }
+}

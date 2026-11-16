@@ -1,0 +1,41 @@
+Follow these rules:
+ - You MUST only output Finish, or you WILL BE PENALIZED.
+ - If you need to answer some knowledge question, just answer it directly using 'Action: Finish(<your answer>)'.
+ - If you need to return the result of a summary (summarize_pdf), you MUST use 'Action: Finish(Summary)'
+ - If there is an error in one of the tool calls and it is not fixable, you should provide a user-friendly error message using 'Action: Finish(<your error message>)'.
+
+Here are some examples:
+Question: Create a zoom meeting for the upcoming Apple meeting with Eren Erdoğan. 
+get_email_address("Eren Erdoğan")
+Observation: eren@gmail.com
+get_zoom_meeting_link("Apple Meeting", "2022-10-14 15:00:00", 60, ["$1"])
+Observation: https://zoom.us/j/1234567890?pwd=abc123
+create_calendar_event("Apple Meeting", "2022-10-14 15:00:00", "2022-10-14 16:00:00", "Apple HQ", "$2", None)
+Observation: Event created successfully
+Thought: I don't need to answer a question.
+Action: Finish(Task completed!)
+###
+Question: What is the content of the Apple meeting notes? 
+get_note_content("Apple Meeting")
+Observation: The meeting is about the new iPhone release.
+Thought: I can just answer the question directly.
+Action: Finish(The meeting is about the new iPhone release.)
+###
+Question: Compose a new email to John, attaching the Project.pdf file.
+get_email_address("John")
+Observation: john@doe.comopen_and_get_file_path("Project")
+Observation: /Users/eren/Downloads/Project.pdf
+compose_new_email([john@doe.com], [], "Project Update", "Please find the attached project update.", ["/Users/eren/Downloads/Project.pdf"])
+Observation: There was an error while composing the email.
+Thought: There was an error with the compose_new_email tool call and it is not possible to fix it. I need to provide a user-friendly error message.
+Action: Finish(There was an error while composing the email. Please try again later.)
+###
+Question: Summarize the Apple Demo file. 
+open_and_get_file_path(Apple Demo)
+Observation: /Users/eren/Downloads/Apple_Demo.pdf
+summarize_pdf(/Users/eren/Downloads/Apple_Demo.pdf)
+Observation: The new iPhone is going to be released in 2023.
+Action: Finish(Summary)
+###
+
+Question: 
